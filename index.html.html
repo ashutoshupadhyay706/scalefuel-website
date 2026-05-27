@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ScaleFuel — We Build. We Scale. We Deliver.</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#c0392b;--red-dim:rgba(192,57,43,0.18);--red-line:rgba(192,57,43,0.35);
+  --blue:#2563eb;--blue-dim:rgba(37,99,235,0.12);
+  --bg:#080808;--bg2:#0e0e0e;--bg3:#141414;
+  --surface:rgba(255,255,255,0.03);--surface2:rgba(255,255,255,0.055);
+  --text:#ececec;--muted:rgba(236,236,236,0.45);--muted2:rgba(236,236,236,0.25);
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);
+  --font-head:'Bebas Neue',sans-serif;--font-body:'DM Sans',sans-serif;--font-mono:'DM Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);overflow-x:hidden}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--red);border-radius:2px}
+
+/* ── INTRO ── */
+#intro{position:fixed;inset:0;z-index:9999;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center}
+#wc{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease}
+#wc.vis{opacity:1}
+#intro-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center}
+.i-logo{opacity:0;transform:scale(0.85);transition:opacity 1s ease,transform 1s ease}
+.i-logo.vis{opacity:1;transform:scale(1)}
+.i-name{font-family:var(--font-head);font-size:clamp(3.5rem,10vw,7rem);letter-spacing:0.18em;color:#fff;opacity:0;transform:translateY(16px);transition:opacity 0.7s ease,transform 0.7s ease;margin-top:1.2rem;line-height:1}
+.i-name.vis{opacity:1;transform:translateY(0)}
+.i-tag{font-family:var(--font-mono);font-size:clamp(0.6rem,1.5vw,0.75rem);letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.3);opacity:0;transition:opacity 0.7s ease 0.15s;margin-top:0.6rem}
+.i-tag.vis{opacity:1}
+.i-line{width:0;height:1px;background:linear-gradient(90deg,transparent,var(--red),transparent);margin-top:2.2rem;transition:width 1s ease 0.4s}
+.i-line.vis{width:200px}
+#i-fade{position:absolute;inset:0;background:#000;opacity:0;transition:opacity 0.65s ease;pointer-events:none}
+
+/* ── MAIN ── */
+main{opacity:0;transition:opacity 0.5s ease}
+main.vis{opacity:1}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;inset-inline:0;z-index:100;padding:1.1rem 6%;display:flex;align-items:center;justify-content:space-between;background:rgba(8,8,8,0.75);backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
+.n-logo{font-family:var(--font-head);font-size:1.55rem;letter-spacing:0.14em;color:#fff;text-decoration:none}
+.n-logo span{color:var(--red)}
+.n-links{display:flex;gap:2.2rem;list-style:none}
+.n-links a{color:var(--muted);text-decoration:none;font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:500;transition:color 0.25s}
+.n-links a:hover{color:#fff}
+.n-cta{background:var(--red);color:#fff;border:none;padding:0.5rem 1.35rem;border-radius:3px;font-family:var(--font-body);font-size:0.78rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:all 0.25s;text-decoration:none}
+.n-cta:hover{background:#a93226;transform:translateY(-1px)}
+.hbg{display:none;flex-direction:column;gap:5px;cursor:pointer}
+.hbg span{width:22px;height:1.5px;background:var(--text);border-radius:1px;transition:all 0.3s}
+
+/* ── HERO ── */
+#hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:9rem 6% 5rem}
+#pc{position:absolute;inset:0;pointer-events:none}
+.h-bg-dot{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none}
+.h-bg-dot.r{width:420px;height:420px;background:rgba(192,57,43,0.07);top:15%;left:5%;animation:drift 9s ease infinite}
+.h-bg-dot.b{width:350px;height:350px;background:rgba(37,99,235,0.06);bottom:20%;right:5%;animation:drift 12s ease 3s infinite}
+@keyframes drift{0%,100%{transform:translate(0,0)}33%{transform:translate(20px,-15px)}66%{transform:translate(-10px,20px)}}
+.h-inner{text-align:center;position:relative;z-index:2;max-width:860px}
+.h-eyebrow{display:inline-flex;align-items:center;gap:0.6rem;border:1px solid var(--border2);border-radius:2px;padding:0.35rem 1rem;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:2rem;animation:fu 0.7s ease 0.2s both;font-family:var(--font-mono)}
+.h-eyebrow::before{content:'';width:5px;height:5px;background:var(--red);border-radius:50%;animation:pdot 2.5s infinite}
+@keyframes pdot{0%,100%{opacity:1}50%{opacity:0.3}}
+h1.h-title{font-family:var(--font-head);font-size:clamp(3rem,8vw,6.2rem);line-height:0.95;letter-spacing:0.04em;margin-bottom:1.8rem;animation:fu 0.7s ease 0.35s both;color:#fff}
+h1.h-title .r{color:var(--red)}
+.h-sub{font-size:clamp(0.9rem,1.8vw,1.05rem);color:var(--muted);max-width:540px;margin:0 auto 2.8rem;line-height:1.75;font-weight:300;animation:fu 0.7s ease 0.5s both}
+.h-btns{display:flex;gap:0.9rem;justify-content:center;flex-wrap:wrap;animation:fu 0.7s ease 0.65s both}
+.btn-p{background:var(--red);color:#fff;border:none;padding:0.85rem 2.1rem;border-radius:3px;font-family:var(--font-body);font-weight:600;font-size:0.88rem;letter-spacing:0.06em;cursor:pointer;transition:all 0.25s;text-decoration:none;display:inline-block}
+.btn-p:hover{background:#a93226;transform:translateY(-2px)}
+.btn-o{background:transparent;color:rgba(255,255,255,0.75);border:1px solid var(--border2);padding:0.85rem 2.1rem;border-radius:3px;font-family:var(--font-body);font-weight:400;font-size:0.88rem;cursor:pointer;transition:all 0.25s;text-decoration:none;display:inline-block}
+.btn-o:hover{border-color:rgba(255,255,255,0.3);color:#fff;transform:translateY(-2px)}
+.h-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.5rem;color:var(--muted2);font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;font-family:var(--font-mono);animation:fadeI 1s ease 1.5s both}
+.h-scroll-ln{width:1px;height:36px;background:linear-gradient(to bottom,var(--red),transparent);animation:sl 2.2s ease infinite}
+@keyframes sl{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@keyframes fu{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeI{from{opacity:0}to{opacity:1}}
+
+/* ── COMMONS ── */
+section{padding:6rem 6%}
+.s-label{font-family:var(--font-mono);font-size:0.64rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--red);margin-bottom:0.7rem;opacity:0.9}
+.s-title{font-family:var(--font-head);font-size:clamp(2.2rem,5.5vw,3.8rem);line-height:1;letter-spacing:0.03em;margin-bottom:0.9rem;color:#fff}
+.s-sub{color:var(--muted);font-size:0.95rem;line-height:1.75;max-width:520px;font-weight:300}
+.s-head{margin-bottom:3.5rem}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent);opacity:1}
+
+/* ── WHY ── */
+#why{background:var(--bg2);position:relative}
+#why::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,0.025) 1px,transparent 0);background-size:44px 44px;pointer-events:none}
+.w-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1px;border:1px solid var(--border)}
+.w-card{background:var(--bg2);padding:2.2rem 2rem;position:relative;overflow:hidden;transition:background 0.35s;cursor:default}
+.w-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform 0.4s ease}
+.w-card:hover{background:var(--bg3)}
+.w-card:hover::after{transform:scaleX(1)}
+.w-num{font-family:var(--font-head);font-size:0.75rem;letter-spacing:0.2em;color:var(--red);margin-bottom:1.5rem;opacity:0.7}
+.w-card h3{font-family:var(--font-head);font-size:1.4rem;letter-spacing:0.05em;margin-bottom:0.6rem;color:#fff}
+.w-card p{color:var(--muted);font-size:0.87rem;line-height:1.65;font-weight:300}
+
+/* ── SERVICES ── */
+#services{background:var(--bg);position:relative}
+.sv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;border:1px solid var(--border)}
+.sv-card{background:var(--bg);padding:2.2rem 2rem;position:relative;overflow:hidden;transition:background 0.3s;cursor:default}
+.sv-card:hover{background:var(--bg2)}
+.sv-card::before{content:'';position:absolute;bottom:0;left:0;width:100%;height:1px;background:linear-gradient(90deg,var(--red),var(--blue));transform:scaleX(0);transform-origin:left;transition:transform 0.4s ease}
+.sv-card:hover::before{transform:scaleX(1)}
+.sv-ico{font-size:1.3rem;margin-bottom:1.4rem;display:block}
+.sv-card h3{font-family:var(--font-head);font-size:1.35rem;letter-spacing:0.04em;margin-bottom:0.5rem;color:#fff}
+.sv-card p{color:var(--muted);font-size:0.85rem;line-height:1.65;font-weight:300}
+.sv-pill{display:inline-block;border:1px solid var(--border2);color:rgba(255,255,255,0.3);font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.2rem 0.65rem;border-radius:2px;margin-top:1rem}
+
+/* ── CLIENTS ── */
+#clients{background:var(--bg2)}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;border:1px solid var(--border);margin-bottom:3.5rem}
+.stat-cell{padding:1.8rem 1.5rem;text-align:center;background:var(--bg2)}
+.stat-n{font-family:var(--font-head);font-size:2.4rem;letter-spacing:0.04em;color:#fff;line-height:1}
+.stat-n span{color:var(--red)}
+.stat-l{font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted2);margin-top:0.4rem}
+.cl-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;border:1px solid var(--border)}
+.cl-card{background:var(--bg2);padding:1.8rem 1.5rem;display:flex;align-items:center;gap:1rem;transition:background 0.3s;cursor:default}
+.cl-card:hover{background:var(--bg3)}
+.cl-ico{font-size:1.4rem;flex-shrink:0}
+.cl-card h3{font-family:var(--font-head);font-size:1.1rem;letter-spacing:0.04em;color:#fff;margin-bottom:0.2rem}
+.cl-card p{color:var(--muted);font-size:0.78rem;font-weight:300}
+
+/* ── CONTACT ── */
+#contact{background:var(--bg);position:relative;overflow:hidden}
+#contact::before{content:'';position:absolute;top:-200px;right:-150px;width:500px;height:500px;background:radial-gradient(circle,rgba(192,57,43,0.04),transparent 65%);pointer-events:none}
+.ct-wrap{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;position:relative;z-index:2}
+.ct-info .s-title{margin-bottom:0.8rem}
+.ct-info p{color:var(--muted);line-height:1.75;margin-bottom:2.5rem;font-weight:300;font-size:0.95rem}
+.ct-items{display:flex;flex-direction:column;gap:0.8rem}
+.ct-item{display:flex;align-items:center;gap:1rem;padding:0.9rem 1.2rem;border:1px solid var(--border);transition:all 0.25s;text-decoration:none;color:var(--text);background:var(--surface)}
+.ct-item:hover{border-color:var(--red-line);background:var(--red-dim)}
+.ct-ico{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;border:1px solid var(--border)}
+.ct-txt{display:flex;flex-direction:column}
+.ct-lbl{font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted2)}
+.ct-val{font-size:0.9rem;font-weight:500;margin-top:0.1rem}
+.ct-cta{border:1px solid var(--border);padding:2.5rem;background:var(--surface)}
+.ct-cta h3{font-family:var(--font-head);font-size:2rem;letter-spacing:0.05em;margin-bottom:0.6rem;color:#fff}
+.ct-cta p{color:var(--muted);font-size:0.88rem;line-height:1.65;margin-bottom:2rem;font-weight:300}
+.btn-wa{background:#25d366;color:#fff;border:none;padding:0.85rem 1.5rem;border-radius:3px;font-family:var(--font-body);font-weight:600;font-size:0.88rem;cursor:pointer;transition:all 0.25s;width:100%;display:block;text-decoration:none;text-align:center;letter-spacing:0.04em;margin-bottom:0.7rem}
+.btn-wa:hover{background:#1db954;transform:translateY(-1px)}
+.btn-ig{background:transparent;color:rgba(255,255,255,0.6);border:1px solid var(--border2);padding:0.85rem 1.5rem;border-radius:3px;font-family:var(--font-body);font-weight:400;font-size:0.85rem;cursor:pointer;transition:all 0.25s;width:100%;display:block;text-decoration:none;text-align:center}
+.btn-ig:hover{border-color:rgba(255,255,255,0.25);color:#fff}
+
+/* ── FOOTER ── */
+footer{background:#050505;border-top:1px solid var(--border);padding:1.6rem 6%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem}
+.f-brand{font-family:var(--font-head);font-size:1.2rem;letter-spacing:0.14em;color:#fff}
+.f-brand span{color:var(--red)}
+.f-copy{color:var(--muted2);font-size:0.75rem;font-family:var(--font-mono)}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(32px);transition:opacity 0.65s ease,transform 0.65s ease}
+.reveal.vis{opacity:1;transform:translateY(0)}
+.rd1{transition-delay:0.08s}.rd2{transition-delay:0.16s}.rd3{transition-delay:0.24s}.rd4{transition-delay:0.32s}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  .n-links{display:none}.hbg{display:flex}
+  .ct-wrap{grid-template-columns:1fr}
+  .h-btns{flex-direction:column;align-items:center}
+  footer{flex-direction:column;text-align:center}
+  .n-links.open{display:flex;flex-direction:column;position:fixed;top:62px;left:0;right:0;background:rgba(8,8,8,0.97);padding:2rem 6%;gap:1.5rem;border-bottom:1px solid var(--border);z-index:99}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ INTRO ═══ -->
+<div id="intro">
+  <canvas id="wc"></canvas>
+  <div id="intro-inner">
+    <!-- LOGO: replace div below with <img src="your-logo.png" class="i-logo" id="i-logo" alt="ScaleFuel"> -->
+    <div class="i-logo" id="i-logo" style="width:88px;height:88px;border:1px solid rgba(192,57,43,0.3);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px">
+      <span style="font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;color:rgba(192,57,43,0.5);text-transform:uppercase">Your</span>
+      <span style="font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;color:rgba(192,57,43,0.5);text-transform:uppercase">Logo</span>
+      <span style="font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;color:rgba(192,57,43,0.5);text-transform:uppercase">Here</span>
+    </div>
+    <div class="i-name" id="i-name">SCALEFUEL</div>
+    <div class="i-tag" id="i-tag">We Build &nbsp;·&nbsp; We Scale &nbsp;·&nbsp; We Deliver</div>
+    <div class="i-line" id="i-line"></div>
+  </div>
+  <div id="i-fade"></div>
+</div>
+
+<!-- ═══ MAIN ═══ -->
+<main id="main">
+
+<nav>
+  <a href="#hero" class="n-logo">SCALE<span>FUEL</span></a>
+  <ul class="n-links" id="nav-links">
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#clients">Clients</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="https://wa.me/917234050506" class="n-cta" target="_blank">Book a Call</a>
+  <div class="hbg" id="hbg" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="pc"></canvas>
+  <div class="h-bg-dot r"></div>
+  <div class="h-bg-dot b"></div>
+  <div class="h-inner">
+    <div class="h-eyebrow">Next-Gen Creative Agency</div>
+    <h1 class="h-title">Turning Brands Into<br><span class="r">Attention Magnets</span></h1>
+    <p class="h-sub">We help brands grow through social media strategy, content creation, branding, and modern digital execution.</p>
+    <div class="h-btns">
+      <a href="https://wa.me/917234050506" class="btn-p" target="_blank">Book a Call →</a>
+      <a href="#services" class="btn-o">View Our Work</a>
+    </div>
+  </div>
+  <div class="h-scroll">
+    <div class="h-scroll-ln"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WHY US -->
+<section id="why">
+  <div class="s-head reveal">
+    <div class="s-label">Why ScaleFuel</div>
+    <h2 class="s-title">Built Different.</h2>
+    <p class="s-sub">No fluff. No layers. Results-driven execution designed for brands that want to dominate.</p>
+  </div>
+  <div class="w-grid">
+    <div class="w-card reveal rd1">
+      <div class="w-num">01 — Strategy</div>
+      <h3>Creative Strategy</h3>
+      <p>Content engineered for reach and engagement. Every post has a purpose, every campaign a clear direction.</p>
+    </div>
+    <div class="w-card reveal rd2">
+      <div class="w-num">02 — Speed</div>
+      <h3>Fast Execution</h3>
+      <p>Quick turnaround without compromise. Speed meets precision in every deliverable we ship.</p>
+    </div>
+    <div class="w-card reveal rd3">
+      <div class="w-num">03 — Trends</div>
+      <h3>Trend-Focused</h3>
+      <p>Modern content built for today's audiences. We stay ahead of the curve so your brand looks sharp.</p>
+    </div>
+    <div class="w-card reveal rd4">
+      <div class="w-num">04 — Access</div>
+      <h3>Direct Support</h3>
+      <p>Zero corporate layers. You talk directly to the founders. Fast decisions, clear communication.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="s-head reveal">
+    <div class="s-label">What We Do</div>
+    <h2 class="s-title">Services That Scale</h2>
+    <p class="s-sub">End-to-end digital execution. From content to conversions, we handle every touchpoint.</p>
+  </div>
+  <div class="sv-grid">
+    <div class="sv-card reveal rd1">
+      <span class="sv-ico">📱</span>
+      <h3>Social Media Management</h3>
+      <p>Full-cycle management across Instagram, LinkedIn, and beyond. Strategy, scheduling, and analytics.</p>
+      <div class="sv-pill">Core</div>
+    </div>
+    <div class="sv-card reveal rd2">
+      <span class="sv-ico">🎬</span>
+      <h3>Reels & Content Creation</h3>
+      <p>Cinematic, scroll-stopping reels tailored for virality. Shot, edited, delivered on time.</p>
+      <div class="sv-pill">High Impact</div>
+    </div>
+    <div class="sv-card reveal rd3">
+      <span class="sv-ico">✦</span>
+      <h3>Branding & Positioning</h3>
+      <p>Build a brand that commands attention. Visual identity, tone of voice, and market positioning.</p>
+      <div class="sv-pill">Foundation</div>
+    </div>
+    <div class="sv-card reveal rd1">
+      <span class="sv-ico">🚀</span>
+      <h3>Growth Strategy</h3>
+      <p>Data-driven roadmaps to grow your audience and convert followers into customers.</p>
+      <div class="sv-pill">Results</div>
+    </div>
+    <div class="sv-card reveal rd2">
+      <span class="sv-ico">👤</span>
+      <h3>Personal Branding</h3>
+      <p>Make your name the brand. Position yourself as an authority and attract premium opportunities.</p>
+      <div class="sv-pill">Influence</div>
+    </div>
+    <div class="sv-card reveal rd3">
+      <span class="sv-ico">🎯</span>
+      <h3>Lead Generation</h3>
+      <p>Targeted campaigns that bring qualified leads to your inbox. More calls, more deals, more revenue.</p>
+      <div class="sv-pill">Revenue</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CLIENTS -->
+<section id="clients">
+  <div class="s-head reveal">
+    <div class="s-label">Social Proof</div>
+    <h2 class="s-title">20+ Brands Managed</h2>
+    <p class="s-sub">From local businesses to personal brands — elite-level execution for every client we work with.</p>
+  </div>
+  <div class="stats-row reveal">
+    <div class="stat-cell"><div class="stat-n">20<span>+</span></div><div class="stat-l">Brands Managed</div></div>
+    <div class="stat-cell"><div class="stat-n">10<span>M+</span></div><div class="stat-l">Impressions</div></div>
+    <div class="stat-cell"><div class="stat-n">6</div><div class="stat-l">Industries</div></div>
+    <div class="stat-cell"><div class="stat-n">100<span>%</span></div><div class="stat-l">Client Retention</div></div>
+  </div>
+  <div class="cl-grid">
+    <div class="cl-card reveal rd1"><span class="cl-ico">💇</span><div><h3>Salons</h3><p>Beauty brands booked out weeks ahead</p></div></div>
+    <div class="cl-card reveal rd2"><span class="cl-ico">💪</span><div><h3>Gyms</h3><p>Fitness studios with thriving communities</p></div></div>
+    <div class="cl-card reveal rd3"><span class="cl-ico">💻</span><div><h3>Freelancers</h3><p>Professionals landing premium clients</p></div></div>
+    <div class="cl-card reveal rd4"><span class="cl-ico">🤖</span><div><h3>Automation Cos.</h3><p>Tech brands streamlining B2B outreach</p></div></div>
+    <div class="cl-card reveal rd1"><span class="cl-ico">⭐</span><div><h3>Personal Brands</h3><p>Thought leaders dominating their niches</p></div></div>
+    <div class="cl-card reveal rd2"><span class="cl-ico">🏪</span><div><h3>Local Businesses</h3><p>Community brands scaling beyond borders</p></div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="ct-wrap">
+    <div class="ct-info reveal">
+      <div class="s-label">Get In Touch</div>
+      <h2 class="s-title">Let's Scale<br>Your Brand</h2>
+      <p>Ready to transform your digital presence? Reach out and let's build something that stops the scroll.</p>
+      <div class="ct-items">
+        <a href="https://wa.me/917234050506" class="ct-item" target="_blank">
+          <div class="ct-ico">📱</div>
+          <div class="ct-txt"><span class="ct-lbl">WhatsApp / Call</span><span class="ct-val">+91 72340 50506</span></div>
+        </a>
+        <a href="mailto:scalefuel@gmail.com" class="ct-item">
+          <div class="ct-ico">✉️</div>
+          <div class="ct-txt"><span class="ct-lbl">Email</span><span class="ct-val">scalefuel@gmail.com</span></div>
+        </a>
+        <a href="https://instagram.com/scalefuel_" class="ct-item" target="_blank">
+          <div class="ct-ico">📸</div>
+          <div class="ct-txt"><span class="ct-lbl">Instagram</span><span class="ct-val">@scalefuel_</span></div>
+        </a>
+        <a href="https://linkedin.com/company/scalefuel" class="ct-item" target="_blank">
+          <div class="ct-ico">💼</div>
+          <div class="ct-txt"><span class="ct-lbl">LinkedIn</span><span class="ct-val">ScaleFuel</span></div>
+        </a>
+      </div>
+    </div>
+    <div class="reveal rd2">
+      <div class="ct-cta">
+        <h3>Ready to Grow?</h3>
+        <p>Book a free discovery call and let's map out your brand's growth strategy in 30 minutes.</p>
+        <a href="https://wa.me/917234050506?text=Hi%2C%20I%20want%20to%20book%20a%20call%20with%20ScaleFuel" class="btn-wa" target="_blank">💬 &nbsp;WhatsApp Us Now</a>
+        <a href="https://instagram.com/scalefuel_" class="btn-ig" target="_blank">📸 &nbsp;Follow @scalefuel_</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-brand">SCALE<span>FUEL</span></div>
+  <div class="f-copy">© 2025 ScaleFuel — All rights reserved</div>
+</footer>
+
+</main>
+
+<script>
+/* ── INTRO ── */
+(function(){
+  const canvas=document.getElementById('wc');
+  const ctx=canvas.getContext('2d');
+  let W,H,nodes=[];
+  const N=55;
+  function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight}
+  resize();
+  for(let i=0;i<N;i++) nodes.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-0.5)*0.25,vy:(Math.random()-0.5)*0.25,r:Math.random()*1.2+0.3});
+  let raf;
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    for(let i=0;i<N;i++){
+      let n=nodes[i];
+      n.x+=n.vx;n.y+=n.vy;
+      if(n.x<0||n.x>W)n.vx*=-1;
+      if(n.y<0||n.y>H)n.vy*=-1;
+      for(let j=i+1;j<N;j++){
+        let dx=n.x-nodes[j].x,dy=n.y-nodes[j].y;
+        let d=Math.sqrt(dx*dx+dy*dy);
+        if(d<170){
+          ctx.beginPath();
+          ctx.moveTo(n.x,n.y);
+          ctx.lineTo(nodes[j].x,nodes[j].y);
+          ctx.strokeStyle=`rgba(192,57,43,${(1-d/170)*0.18})`;
+          ctx.lineWidth=0.5;
+          ctx.stroke();
+        }
+      }
+      ctx.beginPath();
+      ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+      ctx.fillStyle='rgba(192,57,43,0.25)';
+      ctx.fill();
+    }
+    raf=requestAnimationFrame(draw);
+  }
+  draw();
+  const wc=document.getElementById('wc');
+  const logo=document.getElementById('i-logo');
+  const name=document.getElementById('i-name');
+  const tag=document.getElementById('i-tag');
+  const line=document.getElementById('i-line');
+  const fade=document.getElementById('i-fade');
+  const mainEl=document.getElementById('main');
+  setTimeout(()=>wc.classList.add('vis'),200);
+  setTimeout(()=>logo.classList.add('vis'),800);
+  setTimeout(()=>{name.classList.add('vis');tag.classList.add('vis');line.classList.add('vis');},1900);
+  setTimeout(()=>{
+    fade.style.opacity='1';
+    cancelAnimationFrame(raf);
+    setTimeout(()=>{
+      document.getElementById('intro').style.display='none';
+      mainEl.classList.add('vis');
+      initParticles();
+      initReveal();
+    },650);
+  },3600);
+})();
+
+/* ── HERO PARTICLES ── */
+function initParticles(){
+  const canvas=document.getElementById('pc');
+  const ctx=canvas.getContext('2d');
+  let W,H,pts=[];
+  const N=60;
+  function resize(){W=canvas.width=canvas.offsetWidth;H=canvas.height=canvas.offsetHeight}
+  resize();window.addEventListener('resize',resize);
+  for(let i=0;i<N;i++) pts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-0.5)*0.35,vy:(Math.random()-0.5)*0.35,s:Math.random()*1.2+0.2});
+  let mx=W/2,my=H/2;
+  canvas.parentElement.addEventListener('mousemove',e=>{mx=e.offsetX;my=e.offsetY});
+  (function tick(){
+    ctx.clearRect(0,0,W,H);
+    pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;});
+    for(let i=0;i<N;i++){
+      for(let j=i+1;j<N;j++){
+        let dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);
+        if(d<130){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=`rgba(255,255,255,${(1-d/130)*0.06})`;ctx.lineWidth=0.5;ctx.stroke();}
+      }
+      let dm=Math.sqrt((pts[i].x-mx)**2+(pts[i].y-my)**2);
+      if(dm<100){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(mx,my);ctx.strokeStyle=`rgba(192,57,43,${(1-dm/100)*0.15})`;ctx.lineWidth=0.5;ctx.stroke();}
+      ctx.beginPath();ctx.arc(pts[i].x,pts[i].y,pts[i].s,0,Math.PI*2);ctx.fillStyle='rgba(255,255,255,0.18)';ctx.fill();
+    }
+    requestAnimationFrame(tick);
+  })();
+}
+
+/* ── SCROLL REVEAL ── */
+function initReveal(){
+  const els=document.querySelectorAll('.reveal');
+  const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target);}}),{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+  els.forEach(el=>obs.observe(el));
+}
+
+/* ── MOBILE MENU ── */
+function toggleMenu(){document.getElementById('nav-links').classList.toggle('open');}
+</script>
+</body>
+</html>
